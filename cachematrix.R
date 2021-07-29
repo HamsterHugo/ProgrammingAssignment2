@@ -10,8 +10,8 @@
 makeCacheMatrix <- function(x = matrix()) {
         inv <- NULL
         set <- function(y){
-                x<<-y
-                inv<<-NULL ## Reset the inv variable when the matrix x is changed.
+                x<<-y ## The <<- assignment operator is used to change x in the parent environment.
+                inv<<-NULL ## Reset the inv variable when the matrix x is changed (in the parent environment).
         }
         get <- function() x
         setInverse <- function(inverse) inv <<- inverse
@@ -30,12 +30,12 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
         inverse<-x$getInverse()
-        if(!is.null(inverse)){
-                message("Getting cache data:")
-                return(inverse)
+        if(!is.null(inverse)){ ## Checks if the inverse is already in the cache.
+                message("Getting cache data:") ## Note that the inverse is in the cache.
+                return(inverse) ## Returning the already computed inverse.
         }
         data<-X$get()
-        inverse<-solve(data)
+        inverse<-solve(data) ## Computing the inverse of the matrix.
         X$setInverse(inverse)
         inverse
 }
